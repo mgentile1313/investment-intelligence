@@ -43,6 +43,7 @@ def extract_sections(ticker: str) -> list[dict]:
         section_text = str(section_text)
         for old, new in TEXT_REPLACEMENTS.items():
             section_text = section_text.replace(old, new)
+        section_text = f"Company: {company.name} | Section: {section_name}\n{section_text}"
         docs = splitter.create_documents(
             texts=[section_text],
             metadatas=[{
