@@ -1,0 +1,1340 @@
+- description: '[factual] How many full-time equivalent employees did Apple have as
+    of September 2025?'
+  vars:
+    question: How many full-time equivalent employees did Apple have as of September
+      2025?
+    ideal_answer: Apple had approximately 166,000 full-time equivalent employees as
+      of September 27, 2025.
+    category: factual
+    company: AAPL
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] What percentage of Apple''s net sales came from direct versus
+    indirect distributi'
+  vars:
+    question: What percentage of Apple's net sales came from direct versus indirect
+      distribution channels in 2025?
+    ideal_answer: In 2025, Apple's net sales through direct distribution channels
+      accounted for 40% of total net sales, while indirect distribution channels accounted
+      for 60%.
+    category: factual
+    company: AAPL
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] What are Blackstone''s four business segments?'
+  vars:
+    question: What are Blackstone's four business segments?
+    ideal_answer: 'Blackstone''s four business segments are: (a) Real Estate, managing
+      $319.3 billion in Total AUM; (b) Private Equity, managing $416.4 billion in
+      Total AUM, including Corporate Private Equity, Tactical Opportunities, Life
+      Sciences, Growth Equity, Infrastructure, and Secondaries; (c) Credit & Insurance,
+      managing $443.0 billion in Total AUM; and (d) Multi-Asset Investing, managing
+      $96.2 billion in Total AUM as the largest discretionary allocator to hedge funds.'
+    category: factual
+    company: BX
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] In how many countries does JPMorgan Chase operate, and what
+    percentage of employ'
+  vars:
+    question: In how many countries does JPMorgan Chase operate, and what percentage
+      of employees are in the U.S.?
+    ideal_answer: JPMorgan Chase's 318,512 employees are located in 66 countries,
+      with 58% of the firm's employees located in the U.S.
+    category: factual
+    company: JPM
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] What percentage of CrowdStrike''s total revenue came from
+    subscription versus pro'
+  vars:
+    question: What percentage of CrowdStrike's total revenue came from subscription
+      versus professional services in fiscal 2026?
+    ideal_answer: Subscription revenue was $4.56 billion and accounted for 95% of
+      CrowdStrike's total revenue in fiscal 2026. Professional services revenue was
+      $247.3 million, making up the remaining 5%.
+    category: factual
+    company: CRWD
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] How many Disney+ and Hulu subscriptions did Disney report
+    at the end of fiscal y'
+  vars:
+    question: How many Disney+ and Hulu subscriptions did Disney report at the end
+      of fiscal year 2025?
+    ideal_answer: As of September 27, 2025, Disney had approximately 132 million paid
+      Disney+ subscribers and approximately 64 million paid Hulu subscribers, based
+      on internal management reports as disclosed in the 10-K.
+    category: factual
+    company: DIS
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] What is NVIDIA''s fiscal year end date and how many employees
+    did it have?'
+  vars:
+    question: What is NVIDIA's fiscal year end date and how many employees did it
+      have?
+    ideal_answer: NVIDIA's fiscal year ended January 25, 2026. As of the end of fiscal
+      year 2026, NVIDIA had approximately 42,000 employees in 38 countries; 31,000
+      were engaged in research and development and 11,000 were engaged in sales, marketing,
+      operations, and administrative positions.
+    category: factual
+    company: NVDA
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] What products are included in Apple''s Wearables, Home and
+    Accessories category?'
+  vars:
+    question: What products are included in Apple's Wearables, Home and Accessories
+      category?
+    ideal_answer: Wearables includes Apple Watch (Series 11, SE 3, Ultra 3), AirPods,
+      AirPods Pro, AirPods Max, Beats products, and Apple Vision Pro spatial computer.
+      Home includes Apple TV 4K and HomePod and HomePod mini. Accessories includes
+      Apple-branded and third-party accessories.
+    category: factual
+    company: AAPL
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] How much did Disney spend on capital expenditures in fiscal
+    2025 and what drove '
+  vars:
+    question: How much did Disney spend on capital expenditures in fiscal 2025 and
+      what drove the increase?
+    ideal_answer: Disney's capital expenditures increased to $8.0 billion in fiscal
+      2025 from $5.4 billion in the prior year. The increase was due to higher spending
+      on cruise ship fleet expansion and, to a lesser extent, on new theme park attractions
+      at the Experiences segment.
+    category: factual
+    company: DIS
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[factual] What are the principal risk categories JPMorgan Chase identifies
+    in its 10-K, an'
+  vars:
+    question: What are the principal risk categories JPMorgan Chase identifies in
+      its 10-K, and how does it organize them?
+    ideal_answer: 'JPMorgan Chase organizes its risk factors into the following principal
+      categories: Legal and Regulatory risks (impact of extensive supervision and
+      regulation on operations); Political risks (economic uncertainty from political
+      developments); Market risks (effects of unfavorable economic conditions, interest
+      rate changes, and market fluctuations on businesses, investments, and market-making
+      positions); Credit risks; Liquidity risks; Operational risks (process failures,
+      fraud, document errors, model flaws, misconduct); Conduct risks; Strategic risks;
+      Reputation risks; Country risks; and People risks. The firm states that any
+      risk factor by itself, or combined with others, could materially adversely affect
+      its business, results, financial condition, capital position, liquidity, competitive
+      position, or reputation.'
+    category: factual
+    company: JPM
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] What risks does Apple identify related to tariffs and
+    international trade restri'
+  vars:
+    question: What risks does Apple identify related to tariffs and international
+      trade restrictions?
+    ideal_answer: Apple discloses that beginning in the second quarter of 2025, new
+      tariffs were announced on U.S. imports, including additional tariffs on imports
+      from China, India, Japan, South Korea, Taiwan, Vietnam and the EU. Several countries
+      have imposed or threatened reciprocal tariffs. A significant majority of Apple's
+      manufacturing is performed by outsourcing partners in China mainland, India,
+      Japan, South Korea, Taiwan and Vietnam. Trade restrictions can increase costs,
+      limit product availability, require changing suppliers and restructuring operations,
+      and may be announced with little advance notice. The U.S. Department of Commerce
+      also initiated a Section 232 investigation into imports of semiconductors, semiconductor
+      manufacturing equipment, and their derivative products, including downstream
+      products that contain semiconductors.
+    category: analytical
+    company: AAPL
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] How does NVIDIA describe the macroeconomic factors affecting
+    its business?'
+  vars:
+    question: How does NVIDIA describe the macroeconomic factors affecting its business?
+    ideal_answer: NVIDIA identifies macroeconomic factors including tariffs, inflation,
+      interest rate changes, capital market volatility, global supply chain constraints,
+      and global economic and geopolitical developments as having direct and indirect
+      impacts on results of operations, particularly demand for products. While difficult
+      to isolate and quantify, these factors impact supply chain and manufacturing
+      costs, employee wages, costs for capital equipment, the value of investments,
+      revenue and competitive position.
+    category: analytical
+    company: NVDA
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] What does CrowdStrike disclose about the July 19, 2024
+    incident and its ongoing '
+  vars:
+    question: What does CrowdStrike disclose about the July 19, 2024 incident and
+      its ongoing impact?
+    ideal_answer: CrowdStrike describes the July 19 Incident as a content configuration
+      update released for its Falcon sensor that resulted in system crashes for certain
+      Windows systems. The 10-K states the incident has had, and is expected to continue
+      to have, an adverse effect on CrowdStrike's business, sales, customer and partner
+      relations, reputation, results of operations and financial condition. It is
+      listed as the first risk factor in the filing. The company also tracks July
+      19 Incident related costs and recoveries as a separate line item excluded from
+      non-GAAP financial measures.
+    category: analytical
+    company: CRWD
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] How does Apple describe the competitive dynamics in its
+    markets?'
+  vars:
+    question: How does Apple describe the competitive dynamics in its markets?
+    ideal_answer: Apple states its products and services are offered in highly competitive
+      global markets characterized by aggressive price competition, downward pressure
+      on gross margins, continual improvement in product performance, and price sensitivity.
+      Markets are defined by frequent introduction of new products, short product
+      life cycles, evolving industry standards, and rapid adoption of technological
+      advancements. Many competitors seek to compete through aggressive pricing and
+      very low cost structures, and by imitating Apple's products. Some competitors
+      have broad product lines, low-priced products, large installed bases, and can
+      provide products at little or no profit. Apple has a minority market share in
+      global smartphone, PC, tablet and wearables markets.
+    category: analytical
+    company: AAPL
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] What risks does Apple identify specifically related to
+    artificial intelligence?'
+  vars:
+    question: What risks does Apple identify specifically related to artificial intelligence?
+    ideal_answer: Apple identifies two AI-specific risks in its 10-K. First, the introduction
+      of new and complex technologies such as artificial intelligence features can
+      increase safety risks, including exposing users to harmful, inaccurate or other
+      negative content and experiences. Second, the use of new and emerging technologies
+      including machine learning and AI can involve the acquisition and use of copyrighted
+      materials for training as well as the potential reproduction of copyrighted
+      materials in outputs, creating intellectual property infringement risks.
+    category: analytical
+    company: AAPL
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] What does Blackstone describe as Perpetual Capital and
+    why is it significant to '
+  vars:
+    question: What does Blackstone describe as Perpetual Capital and why is it significant
+      to their business?
+    ideal_answer: Blackstone defines Perpetual Capital as the component of assets
+      under management with an indefinite term, that is not in liquidation, and for
+      which there is no requirement to return capital to investors through redemption
+      requests in the ordinary course of business, except where funded by new capital
+      inflows or where required redemptions are limited in quantum. Perpetual Capital
+      includes co-investment capital with an investor right to convert into Perpetual
+      Capital. Perpetual Capital strategies represent a significant and growing portion
+      of Blackstone's overall business and the management fees and performance revenues
+      it receives. Examples include BREIT and BEPIF in Real Estate, BIP, BXPE, and
+      BXINFRA in Private Equity, and various vehicles in Credit & Insurance. Assets
+      managed for certain insurance clients are also Perpetual Capital.
+    category: analytical
+    company: BX
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] How does Disney''s direct-to-consumer business generate
+    revenue?'
+  vars:
+    question: How does Disney's direct-to-consumer business generate revenue?
+    ideal_answer: The majority of Disney's Direct-to-Consumer revenue is derived from
+      subscription fees and advertising. Disney+ and Hulu are subscription-based DTC
+      services offered individually or in various bundles, which may include one of
+      the ESPN DTC plans and/or third-party DTC services. Disney+ offers SVOD service
+      without advertising in each market it operates and an ad-supported SVOD service
+      in the U.S., Canada and select Latin American and European markets. Hulu offers
+      SVOD services with or without advertising plus a Live TV virtual MVPD service.
+      In the U.S., subscribers to bundled offerings have access to certain content
+      from the other services or plans on Disney+. Services can be purchased on Disney's
+      websites, through third-party platforms/apps, or via wholesale arrangements.
+      Disney+ is available in more than 150 countries and territories outside the
+      U.S.
+    category: analytical
+    company: DIS
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] What does Apple say about its reliance on single-source
+    component suppliers?'
+  vars:
+    question: What does Apple say about its reliance on single-source component suppliers?
+    ideal_answer: Apple states it currently obtains certain components from single
+      or limited sources, subjecting it to significant supply and pricing risks. Many
+      components are subject to industry-wide shortages and commodity pricing fluctuations.
+      New products often utilize custom components available from only one source,
+      with initial capacity constraints until supplier yields mature or manufacturing
+      capacities increase. Apple may not be able to extend or renew supply agreements
+      on similar terms, may not obtain sufficient quantities in a timely manner, and
+      may not identify alternative sources. Component suppliers may fail, consolidate,
+      or decide to concentrate on common components rather than Apple-customized ones.
+      Apple relies on single-source partners in the U.S., Asia and Europe to supply
+      and manufacture many components, and on partners primarily in Asia for final
+      assembly of substantially all hardware products.
+    category: analytical
+    company: AAPL
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] How does Blackstone differentiate Total AUM from Fee-Earning
+    AUM?'
+  vars:
+    question: How does Blackstone differentiate Total AUM from Fee-Earning AUM?
+    ideal_answer: Total Assets Under Management refers to the invested and available
+      capital in Blackstone-managed or advised vehicles, generally equaling the sum
+      of items like net asset value, committed capital, invested capital, gross asset
+      value, and fair value of investments across all vehicles. Fee-Earning Assets
+      Under Management refers to the portion of Total AUM on which Blackstone is entitled
+      to earn management fees and/or performance revenues. Fee-Earning AUM varies
+      by vehicle depending on the basis on which fees are earned. For carry funds,
+      Total AUM includes the fair value of investments held, whereas Fee-Earning AUM
+      includes the amount of capital commitments or remaining invested capital at
+      cost. Blackstone notes their definitions are not based on any definition set
+      forth in the agreements governing their funds.
+    category: analytical
+    company: BX
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[analytical] What does NVIDIA attribute its R&D expense growth to
+    in fiscal 2026?'
+  vars:
+    question: What does NVIDIA attribute its R&D expense growth to in fiscal 2026?
+    ideal_answer: NVIDIA's research and development expenses increased 43% to $18.5
+      billion in fiscal 2026 from $12.9 billion in fiscal 2025. The increase was driven
+      by a 29% increase in compensation and benefits expense, including stock-based
+      compensation, reflecting employee growth and compensation increases, and a 79%
+      increase in compute and infrastructure spending. As of fiscal year end, 31,000
+      of NVIDIA's approximately 42,000 employees (74%) were engaged in research and
+      development.
+    category: analytical
+    company: NVDA
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[comparative] How do NVIDIA and Apple differ in what they identify
+    as their most significant c'
+  vars:
+    question: How do NVIDIA and Apple differ in what they identify as their most significant
+      competitive threats?
+    ideal_answer: 'Apple''s competitive threats center on consumer markets: aggressive
+      price competition, downward pressure on gross margins, competitors imitating
+      Apple''s products and infringing its IP, and its minority market share in smartphones,
+      PCs, tablets and wearables. Apple emphasizes that some competitors can provide
+      products at little or no profit. NVIDIA''s competitive landscape is different:
+      it lists specific competitors including AMD, Huawei, and Intel for GPUs and
+      accelerated computing, and notes that large cloud services companies like Alibaba,
+      Alphabet, Amazon, Baidu, Huawei, and Microsoft have internal teams designing
+      their own accelerated computing hardware. NVIDIA also discloses that as of fiscal
+      year end 2026, it was effectively foreclosed from competing in China''s data
+      center computing market due to export controls. For fiscal year 2026, sales
+      to one direct customer represented 22% and another 14% of total revenue, showing
+      significant customer concentration.'
+    category: comparative
+    company: NVDA,AAPL
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[comparative] How do Blackstone and JPMorgan Chase differ in how they
+    make money?'
+  vars:
+    question: How do Blackstone and JPMorgan Chase differ in how they make money?
+    ideal_answer: Blackstone is the world's largest alternative asset manager, managing
+      over $1.3 trillion in Total Assets Under Management across Real Estate, Private
+      Equity, Credit & Insurance, and Multi-Asset Investing. It generates revenue
+      primarily through management fees on AUM and performance revenues earned when
+      investments exceed return hurdles. JPMorgan Chase is a diversified financial
+      institution with $4.4 trillion in assets and $362.4 billion in stockholders'
+      equity, operating as a leader in investment banking, financial services, and
+      commercial banking with 318,512 employees in 66 countries. Blackstone manages
+      capital on behalf of institutional and individual investors in alternative investment
+      strategies; JPMorgan operates as a bank and financial intermediary.
+    category: comparative
+    company: BX,JPM
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[comparative] Compare Disney and Blackstone''s growth strategies as
+    described in their 10-Ks.'
+  vars:
+    question: Compare Disney and Blackstone's growth strategies as described in their
+      10-Ks.
+    ideal_answer: Disney's growth strategy centers on expanding its Direct-to-Consumer
+      streaming business, with approximately 132 million paid Disney+ subscribers
+      and 64 million paid Hulu subscribers as of September 2025. The company expects
+      to release approximately 20 films in fiscal 2026 and continue producing significant
+      episodic content. Capital expenditures increased to $8.0 billion driven by cruise
+      ship fleet expansion and new theme park attractions. Disney is also expanding
+      ESPN's DTC offering with ESPN Select and ESPN Unlimited plans launched in August
+      2025. Blackstone's growth strategy focuses on raising new funds, expanding into
+      new investment strategies, and growing its Perpetual Capital platform which
+      provides indefinite-term capital generating ongoing management fees and performance
+      revenues. Perpetual Capital strategies include BREIT and BEPIF in Real Estate,
+      BIP, BXPE, and BXINFRA in Private Equity, representing a significant and growing
+      portion of overall business.
+    category: comparative
+    company: DIS,BX
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[comparative] Compare how Apple and NVIDIA describe the role of R&D
+    in maintaining their compe'
+  vars:
+    question: Compare how Apple and NVIDIA describe the role of R&D in maintaining
+      their competitive positions.
+    ideal_answer: Apple states its ability to compete successfully depends heavily
+      on ensuring the continuing and timely introduction of innovative new products,
+      services and technologies. Apple designs and develops nearly the entire solution
+      for its products including hardware, operating system, numerous software applications
+      and related services, requiring significant R&D investment. Apple had approximately
+      166,000 total employees. NVIDIA has invested over $76.7 billion in research
+      and development since inception. R&D expenses were $18.5 billion in fiscal 2026,
+      a 43% increase, with 31,000 of its approximately 42,000 employees (74%) engaged
+      in R&D, and more than half of its engineers working on software. NVIDIA's R&D
+      drives platform shifts in accelerated computing and AI. Both view R&D as essential
+      to competitive advantage, but NVIDIA dedicates a dramatically larger share of
+      its workforce to R&D.
+    category: comparative
+    company: AAPL,NVDA
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[comparative] How do Apple and NVIDIA differ in their descriptions
+    of supply chain risks?'
+  vars:
+    question: How do Apple and NVIDIA differ in their descriptions of supply chain
+      risks?
+    ideal_answer: Apple's supply chain risks center on reliance on outsourcing partners
+      located primarily in China mainland, India, Japan, South Korea, Taiwan and Vietnam
+      for manufacturing, with single-source partners in the U.S., Asia and Europe
+      for many components and partners primarily in Asia for final assembly of substantially
+      all hardware products. Apple emphasizes new U.S. tariffs announced in 2025 on
+      imports from these countries and the Section 232 semiconductor investigation.
+      NVIDIA utilizes a fabless manufacturing strategy, relying on foundries such
+      as TSMC and Samsung for semiconductor wafers, and purchases memory from SK Hynix,
+      Micron, and Samsung. NVIDIA notes its supply chain is mainly concentrated in
+      Asia but is expanding into the U.S. and Latin America. NVIDIA faces export control
+      risks that have effectively foreclosed it from China's data center computing
+      market, and customer concentration where two direct customers represented 22%
+      and 14% of fiscal 2026 revenue.
+    category: comparative
+    company: AAPL,NVDA
+    difficulty: hard
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+- description: '[out_of_scope] What will Apple''s stock price be next year?'
+  vars:
+    question: What will Apple's stock price be next year?
+    ideal_answer: This question cannot be answered from SEC filing data. 10-K filings
+      contain historical financial results and risk disclosures but do not contain
+      stock price predictions. Future stock prices depend on many factors including
+      market conditions, company performance, and investor sentiment that are not
+      disclosed in filings.
+    category: out_of_scope
+    company: AAPL
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+  - type: not-contains
+    value: I recommend
+  - type: not-contains
+    value: you should buy
+  - type: not-contains
+    value: you should invest
+  - type: not-contains
+    value: I would suggest buying
+  - type: not-contains
+    value: I advise
+- description: '[out_of_scope] Should I invest in NVIDIA given its AI growth?'
+  vars:
+    question: Should I invest in NVIDIA given its AI growth?
+    ideal_answer: This question cannot be answered from SEC filing data. While the
+      filings contain detailed financial results and risk factors, they do not provide
+      investment recommendations. Investment decisions require consideration of valuation,
+      personal financial situation, risk tolerance, and many other factors beyond
+      what is disclosed in a 10-K filing.
+    category: out_of_scope
+    company: NVDA
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+  - type: not-contains
+    value: I recommend
+  - type: not-contains
+    value: you should buy
+  - type: not-contains
+    value: you should invest
+  - type: not-contains
+    value: I would suggest buying
+  - type: not-contains
+    value: I advise
+- description: '[out_of_scope] What is JPMorgan Chase''s internal employee satisfaction
+    score?'
+  vars:
+    question: What is JPMorgan Chase's internal employee satisfaction score?
+    ideal_answer: This information is not available in JPMorgan Chase's 10-K filing.
+      While the filing discusses human capital management, diversity metrics, and
+      workforce development programs, internal employee satisfaction scores are not
+      disclosed in SEC filings.
+    category: out_of_scope
+    company: JPM
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+  - type: not-contains
+    value: I recommend
+  - type: not-contains
+    value: you should buy
+  - type: not-contains
+    value: you should invest
+  - type: not-contains
+    value: I would suggest buying
+  - type: not-contains
+    value: I advise
+- description: '[out_of_scope] What is Blackstone''s expected rate of return on its
+    next private equity fund?'
+  vars:
+    question: What is Blackstone's expected rate of return on its next private equity
+      fund?
+    ideal_answer: This information is not disclosed in Blackstone's 10-K filing. While
+      the filing describes Blackstone's investment strategies and fund structures,
+      expected or projected returns on future funds are not included in SEC filings.
+      Such forward-looking performance projections would be speculative and are not
+      part of required disclosures.
+    category: out_of_scope
+    company: BX
+    difficulty: easy
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+  - type: not-contains
+    value: I recommend
+  - type: not-contains
+    value: you should buy
+  - type: not-contains
+    value: you should invest
+  - type: not-contains
+    value: I would suggest buying
+  - type: not-contains
+    value: I advise
+- description: '[out_of_scope] How much did CrowdStrike pay in total settlements related
+    to the July 19, 2024 o'
+  vars:
+    question: How much did CrowdStrike pay in total settlements related to the July
+      19, 2024 outage?
+    ideal_answer: The specific total settlement amounts related to the July 19 Incident
+      are not provided as a single disclosed figure in the 10-K filing. While the
+      filing references the incident extensively as a risk factor and tracks July
+      19 Incident related costs and recoveries as a separate line item, a comprehensive
+      total settlement figure is not available. The filing states the incident has
+      had, and is expected to continue to have, an adverse effect, indicating it remains
+      an ongoing matter.
+    category: out_of_scope
+    company: CRWD
+    difficulty: medium
+  assert:
+  - type: llm-rubric
+    value: 'You are grading a RAG system that answers questions about SEC 10-K filings.
+
+
+      Reference answer (written by a human expert):
+
+      {{ideal_answer}}
+
+
+      Grade the model''s output against this reference. Consider:
+
+      1. Factual accuracy - are the specific numbers, names, and claims correct?
+
+      2. Completeness - does it cover the key points from the reference?
+
+      3. Groundedness - does it stick to information from the filings, or hallucinate?
+
+
+      Score as a float between 0 and 1:
+
+      - 1.0: Covers all key points accurately, no hallucination
+
+      - 0.7: Mostly accurate, minor omissions
+
+      - 0.4: Partially correct, significant gaps or minor inaccuracies
+
+      - 0.0: Wrong, hallucinated, or failed to answer appropriately'
+  - type: not-contains
+    value: I recommend
+  - type: not-contains
+    value: you should buy
+  - type: not-contains
+    value: you should invest
+  - type: not-contains
+    value: I would suggest buying
+  - type: not-contains
+    value: I advise

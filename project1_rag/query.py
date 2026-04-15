@@ -2,7 +2,8 @@
 RAG query pipeline for SEC 10-K filings.
 
 Takes a question, retrieves relevant chunks from Chroma or pgvector,
-and sends them to Claude for a grounded answer.
+optionally reranks them with a cross-encoder, and sends them to Claude
+for a grounded answer.
 """
 
 import os
@@ -12,6 +13,7 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 import anthropic
+from sentence_transformers import CrossEncoder
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_postgres import PGVector
@@ -19,14 +21,17 @@ from config import (
     CHROMA_COLLECTION_FIXED, CHROMA_COLLECTION_VARIABLE,
     CHROMA_PERSIST_DIR, EMBEDDING_MODEL,
     PGVECTOR_COLLECTION_FIXED, PGVECTOR_COLLECTION_VARIABLE,
-    LLM_MODEL, RETRIEVAL_K, MAX_TOKENS, SYSTEM_PROMPT_PATH,
+    LLM_MODEL, RETRIEVAL_K, RERANK_INITIAL_K, RERANK_MODEL,
+    MAX_TOKENS, SYSTEM_PROMPT_PATH,
 )
 
-# --- Module-level initialization (runs once on import) ---
+# Module-level init (runs once on import)
 
 client = anthropic.Anthropic()
 
 embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
+
+reranker = CrossEncoder(RERANK_MODEL)
 
 VECTORSTORES = {
     "chroma": {
@@ -58,15 +63,35 @@ VECTORSTORES = {
 system_prompt = (Path(__file__).resolve().parent / SYSTEM_PROMPT_PATH).read_text()
 
 
+def rerank(question: str, results, k: int = RETRIEVAL_K):
+    """Score each (question, chunk) pair with the cross-encoder and keep top k."""
+    pairs = [[question, doc.page_content] for doc, _score in results]
+    scores = reranker.predict(pairs)
+    # Pair each result with its reranker score, sort descending, take top k.
+    scored = list(zip(results, scores))
+    scored.sort(key=lambda x: x[1], reverse=True)
+    return [result for result, _score in scored[:k]]
+
+
 def retrieve(
     question: str,
     k: int = RETRIEVAL_K,
     collection_type: str = "fixed",
     store: str = "chroma",
+    use_rerank: bool = False,
 ):
-    """Embed the question and return the top-k most similar chunks."""
+    """Embed the question and return the top-k most similar chunks.
+
+    If use_rerank=True, retrieves RERANK_INITIAL_K chunks first, then
+    reranks with the cross-encoder and returns the top k.
+    """
+    initial_k = RERANK_INITIAL_K if use_rerank else k
     vs = VECTORSTORES[store][collection_type]
-    results = vs.similarity_search_with_score(question, k=k)
+    results = vs.similarity_search_with_score(question, k=initial_k)
+
+    if use_rerank:
+        results = rerank(question, results, k=k)
+
     return results
 
 
@@ -92,9 +117,15 @@ def query(
     question: str,
     collection_type: str = "fixed",
     store: str = "chroma",
+    use_rerank: bool = False,
 ) -> dict:
-    """Run the full RAG pipeline: retrieve, build prompt, call Claude."""
-    results = retrieve(question, collection_type=collection_type, store=store)
+    """Run the full RAG pipeline: retrieve, (optionally rerank), build prompt, call Claude."""
+    results = retrieve(
+        question,
+        collection_type=collection_type,
+        store=store,
+        use_rerank=use_rerank,
+    )
     context = format_context(results)
 
     user_message = f"Here are the relevant SEC filing excerpts:\n\n{context}\n\n---\nQuestion: {question}"
@@ -125,6 +156,7 @@ def query(
         "model": response.model,
         "store": store,
         "collection_type": collection_type,
+        "reranked": use_rerank,
         "usage": {
             "input_tokens": response.usage.input_tokens,
             "output_tokens": response.usage.output_tokens,
@@ -149,6 +181,11 @@ if __name__ == "__main__":
         default="chroma",
         help="Which vector store to query (default: chroma)",
     )
+    parser.add_argument(
+        "--rerank", "-r",
+        action="store_true",
+        help="Rerank results with cross-encoder (retrieves 24, keeps top 8)",
+    )
     args = parser.parse_args()
 
     if args.question:
@@ -156,12 +193,18 @@ if __name__ == "__main__":
     else:
         question = input("Question: ")
 
-    result = query(question, collection_type=args.collection_type, store=args.store)
+    result = query(
+        question,
+        collection_type=args.collection_type,
+        store=args.store,
+        use_rerank=args.rerank,
+    )
 
     print(f"\n{'=' * 60}")
     print(result["answer"])
     print(f"\n{'=' * 60}")
-    print(f"Store: {result['store']} | Collection: {result['collection_type']}")
+    rerank_label = " | Reranked" if result["reranked"] else ""
+    print(f"Store: {result['store']} | Collection: {result['collection_type']}{rerank_label}")
     print(f"Model: {result['model']}")
     print(f"Tokens: {result['usage']['input_tokens']} in / {result['usage']['output_tokens']} out")
     print(f"\nSources ({len(result['sources'])}):")

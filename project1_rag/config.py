@@ -24,6 +24,10 @@ RETRIEVAL_K = 8
 MAX_TOKENS = 1024
 SYSTEM_PROMPT_PATH = "prompts/rag_v1.txt"
 
+# Reranking (cross-encoder scores question-chunk pairs for precision)
+RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+RERANK_INITIAL_K = 24  # retrieve this many, rerank down to RETRIEVAL_K
+
 EVAL_QUESTIONS = [
     "What does CrowdStrike say about the risks from the July 2024 outage incident?",
     "How does Blackstone describe its business model and revenue sources?",

@@ -1,0 +1,51 @@
+# Promptfoo eval config - compares 5 RAG configurations.
+#
+# Run from this directory:
+#   promptfoo eval
+#   promptfoo view
+
+description: "SEC 10-K RAG Pipeline - Chunking x Store x Reranking Comparison"
+
+providers:
+  - id: python:provider.py:call_api
+    label: chroma-fixed
+    config:
+      store: chroma
+      collection_type: fixed
+
+  - id: python:provider.py:call_api
+    label: chroma-variable
+    config:
+      store: chroma
+      collection_type: variable
+
+  - id: python:provider.py:call_api
+    label: pgvector-fixed
+    config:
+      store: pgvector
+      collection_type: fixed
+
+  - id: python:provider.py:call_api
+    label: pgvector-variable
+    config:
+      store: pgvector
+      collection_type: variable
+
+  - id: python:provider.py:call_api
+    label: pgvector-variable-reranked
+    config:
+      store: pgvector
+      collection_type: variable
+      rerank: true
+
+# Passthrough - query() handles prompt construction internally.
+prompts:
+  - "{{question}}"
+
+# Generated from golden dataset JSONL via: python load_tests.py
+tests: tests.yaml
+
+# Use Claude as the LLM judge for llm-rubric assertions.
+defaultTest:
+  options:
+    provider: anthropic:messages:claude-sonnet-4-20250514

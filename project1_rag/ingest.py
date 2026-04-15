@@ -4,11 +4,11 @@ Ingest 10-K filings into chunks for RAG.
 For each company: pull the latest 10-K, extract target sections, and split
 into chunks using two strategies:
   - fixed: RecursiveCharacterTextSplitter with a fixed size/overlap
-  - variable: structure-aware splitting on detected headers, with a build-up
+  - variable: structure-aware splitting on detected headers, with a
     paragraph merger bounded by a floor and ceiling
 
 Each chunk set is embedded once and written to both Chroma (local) and
-pgvector (Supabase), giving 4 total collections.
+pgvector (Supabase), producing 4 total collections.
 """
 
 import os
@@ -111,7 +111,7 @@ def chunk_fixed(
 # ---------------------------------------------------------------------------
 
 def _strip_page_artifacts(text: str) -> str:
-    """Remove page-number / pagination lines that leak into section text."""
+    """Remove page-number/pagination lines that leak into section text."""
     kept = []
     for line in text.split("\n"):
         if PAGE_ARTIFACT_RE.match(line):
@@ -130,11 +130,11 @@ def _ends_terminal(block: str) -> bool:
 
 
 def _glue_sentence_fragments(blocks: list[str]) -> list[str]:
-    """Merge blocks broken mid-sentence by the HTML→text conversion.
+    """Merge blocks broken mid-sentence by the HTML-to-text conversion.
 
-    Rule: if block N does not end in terminal punctuation AND block N+1 starts
-    with a lowercase letter, merge them with a single space. Iterates until
-    no further merges happen so cascading fragments collapse correctly.
+    If block N doesn't end in terminal punctuation and block N+1 starts
+    with a lowercase letter, merge them with a single space. Repeats until
+    stable so cascading fragments collapse correctly.
     """
     changed = True
     while changed:
@@ -209,11 +209,11 @@ def _walk_subsections(
 
 
 def _coalesce_bullet_runs(blocks: list[str]) -> list[str]:
-    """Merge bullet blocks within a single subsection's content list.
+    """Merge bullet blocks within a subsection's content list.
 
     - Consecutive bullet blocks merge together.
-    - A bullet block merges into the immediately preceding non-bullet block
-      (within this same list — header is not in this list, so it is safe).
+    - A bullet block merges into the preceding non-bullet block
+      (header is not in this list, so this is safe).
     - If a bullet run has no preceding non-bullet block, it stands alone.
     """
     if not blocks:
@@ -243,13 +243,12 @@ def _build_chunks_for_subsection(
     """Greedily merge paragraphs into chunks bounded by floor/ceiling.
 
     - Never exceed ceiling.
-    - Once current buffer reaches floor, flush on the next natural paragraph
-      boundary rather than packing to ceiling — this keeps chunk sizes
-      tighter and more uniform.
-    - Flush at end-of-subsection even if under floor: preserving the header
-      boundary is the priority.
-    - A single paragraph larger than ceiling is broken down with the fallback
-      splitter.
+    - Once the buffer reaches floor, flush at the next paragraph boundary
+      instead of packing to ceiling. Keeps chunk sizes tighter.
+    - Flush at end-of-subsection even if under floor; preserving header
+      boundaries is the priority.
+    - A single paragraph larger than ceiling is broken up with the
+      fallback splitter.
     """
     chunks: list[str] = []
     current = ""
@@ -277,11 +276,11 @@ def _build_chunks_for_subsection(
             continue
 
         if len(current) + 2 + len(p) > ceiling:
-            # Adding this paragraph would overflow — flush and start fresh.
+            # Adding this paragraph would overflow - flush and start fresh.
             flush()
             current = p
         elif len(current) >= floor:
-            # Already past the floor — flush at this natural boundary.
+            # Already past the floor - flush at this natural boundary.
             flush()
             current = p
         else:
@@ -373,13 +372,7 @@ def _write_to_stores(
     )
     print(f"    Chroma '{chroma_collection_name}': {len(docs)} chunks")
 
-    # --- pgvector (drop + re-create for idempotent re-runs) ---
-    pgvector_store = PGVector(
-        embeddings=embeddings_model,
-        collection_name=pgvector_collection_name,
-        connection=connection_string,
-    )
-    pgvector_store.drop_tables()
+    # --- pgvector ---
     pgvector_store = PGVector(
         embeddings=embeddings_model,
         collection_name=pgvector_collection_name,
@@ -418,8 +411,17 @@ if __name__ == "__main__":
     embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
     connection_string = os.environ["SUPABASE_DB_URL"]
 
+    # Clear pgvector tables once up front (drop_tables is global, not per-collection,
+    # so we do it once before writing either collection).
+    print("\nClearing pgvector tables...")
+    PGVector(
+        embeddings=embeddings,
+        collection_name="throwaway",
+        connection=connection_string,
+    ).drop_tables()
+
     # Embed once per chunk set (2 API calls, not 4).
-    print(f"\nEmbedding {len(fixed_chunks)} fixed chunks...")
+    print(f"Embedding {len(fixed_chunks)} fixed chunks...")
     fixed_vectors = embeddings.embed_documents(
         [d.page_content for d in fixed_chunks]
     )
