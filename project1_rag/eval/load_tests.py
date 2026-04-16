@@ -28,6 +28,17 @@ OUT_OF_SCOPE_GUARDRAILS = [
 RUBRIC = """\
 You are grading a RAG system that answers questions about SEC 10-K filings.
 
+IMPORTANT CONTEXT: The filings in this system are real and were filed in 2025-2026.
+These are NOT future dates. The system has access to:
+- Apple Inc. 10-K filed 2025-10-31 (fiscal year ending September 2025)
+- NVIDIA Corp 10-K filed 2026-02-25 (fiscal year ending January 2026)
+- Walt Disney Co 10-K filed 2025-11-13 (fiscal year ending September 2025)
+- JPMorgan Chase 10-K filed 2026-02-13 (fiscal year ending December 2025)
+- Blackstone Inc. 10-K filed 2026-02-27 (fiscal year ending December 2025)
+- CrowdStrike Holdings 10-K filed 2026-03-05 (fiscal year ending January 2026)
+Do NOT penalize answers for referencing data from these filings. Dates like
+"fiscal 2025", "fiscal 2026", "September 2025", etc. are valid and expected.
+
 Reference answer (written by a human expert):
 {{ideal_answer}}
 
