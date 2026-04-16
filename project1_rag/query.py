@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 import anthropic
+import tiktoken
 from sentence_transformers import CrossEncoder
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
@@ -24,12 +25,15 @@ from config import (
     LLM_MODEL, RETRIEVAL_K, RERANK_INITIAL_K, RERANK_MODEL,
     MAX_TOKENS, SYSTEM_PROMPT_PATH,
 )
+from pricing import compute_cost
 
 # Module-level init (runs once on import)
 
 client = anthropic.Anthropic()
 
 embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
+
+_embed_encoder = tiktoken.encoding_for_model(EMBEDDING_MODEL)
 
 reranker = CrossEncoder(RERANK_MODEL)
 
@@ -115,11 +119,13 @@ def format_context(results) -> str:
 
 def query(
     question: str,
-    collection_type: str = "fixed",
-    store: str = "chroma",
+    collection_type: str = "variable",
+    store: str = "pgvector",
     use_rerank: bool = False,
 ) -> dict:
     """Run the full RAG pipeline: retrieve, (optionally rerank), build prompt, call Claude."""
+    embed_tokens = len(_embed_encoder.encode(question))
+
     results = retrieve(
         question,
         collection_type=collection_type,
@@ -135,6 +141,14 @@ def query(
         max_tokens=MAX_TOKENS,
         system=system_prompt,
         messages=[{"role": "user", "content": user_message}],
+    )
+
+    cost = compute_cost(
+        embedding_tokens=embed_tokens,
+        embedding_model=EMBEDDING_MODEL,
+        llm_input_tokens=response.usage.input_tokens,
+        llm_output_tokens=response.usage.output_tokens,
+        llm_model=LLM_MODEL,
     )
 
     sources = [
@@ -157,10 +171,7 @@ def query(
         "store": store,
         "collection_type": collection_type,
         "reranked": use_rerank,
-        "usage": {
-            "input_tokens": response.usage.input_tokens,
-            "output_tokens": response.usage.output_tokens,
-        },
+        "cost": cost,
     }
 
 
@@ -172,14 +183,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "--collection_type", "-c",
         choices=["fixed", "variable"],
-        default="fixed",
-        help="Which chunking strategy's collection to query (default: fixed)",
+        default="variable",
+        help="Which chunking strategy's collection to query (default: variable)",
     )
     parser.add_argument(
         "--store", "-s",
         choices=["chroma", "pgvector"],
-        default="chroma",
-        help="Which vector store to query (default: chroma)",
+        default="pgvector",
+        help="Which vector store to query (default: pgvector)",
     )
     parser.add_argument(
         "--rerank", "-r",
@@ -206,7 +217,11 @@ if __name__ == "__main__":
     rerank_label = " | Reranked" if result["reranked"] else ""
     print(f"Store: {result['store']} | Collection: {result['collection_type']}{rerank_label}")
     print(f"Model: {result['model']}")
-    print(f"Tokens: {result['usage']['input_tokens']} in / {result['usage']['output_tokens']} out")
+    c = result["cost"]
+    print(
+        f"Tokens: {c['llm_input_tokens']} in / {c['llm_output_tokens']} out "
+        f"/ {c['embedding_tokens']} embed  |  Cost: ${c['total_usd']:.6f}"
+    )
     print(f"\nSources ({len(result['sources'])}):")
     for s in result["sources"]:
         sub = f", subsection: {s['subsection']}" if s.get("subsection") else ""

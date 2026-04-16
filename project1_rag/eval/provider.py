@@ -31,8 +31,8 @@ def call_api(prompt, options, context):
     Returns a dict with "output" (answer text) and optional "metadata".
     """
     config = options.get("config", {})
-    store = config.get("store", "chroma")
-    collection_type = config.get("collection_type", "fixed")
+    store = config.get("store", "pgvector")
+    collection_type = config.get("collection_type", "variable")
     use_rerank = config.get("rerank", False)
 
     # Retry on rate limit (429) with backoff.
@@ -51,8 +51,9 @@ def call_api(prompt, options, context):
                 continue
             raise
 
-    # Return the answer as output, and attach sources + token usage as
+    # Return the answer as output, and attach sources + cost as
     # metadata so they're visible in the promptfoo dashboard.
+    cost = result["cost"]
     return {
         "output": result["answer"],
         "metadata": {
@@ -60,8 +61,10 @@ def call_api(prompt, options, context):
             "collection_type": collection_type,
             "reranked": use_rerank,
             "model": result["model"],
-            "input_tokens": result["usage"]["input_tokens"],
-            "output_tokens": result["usage"]["output_tokens"],
+            "input_tokens": cost["llm_input_tokens"],
+            "output_tokens": cost["llm_output_tokens"],
+            "embedding_tokens": cost["embedding_tokens"],
+            "total_usd": cost["total_usd"],
             "sources": [
                 f"[{s['company']}] {s['section']} chunk {s['chunk_index']} (score {s['score']})"
                 for s in result["sources"]
