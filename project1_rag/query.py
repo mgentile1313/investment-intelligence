@@ -7,6 +7,7 @@ for a grounded answer.
 """
 
 import os
+import time
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -124,6 +125,8 @@ def query(
     use_rerank: bool = False,
 ) -> dict:
     """Run the full RAG pipeline: retrieve, (optionally rerank), build prompt, call Claude."""
+    start = time.perf_counter()
+
     embed_tokens = len(_embed_encoder.encode(question))
 
     results = retrieve(
@@ -159,10 +162,12 @@ def query(
             "chunk_index": doc.metadata["chunk_index"],
             "subsection": doc.metadata.get("subsection"),
             "score": round(score, 4),
-            "text_preview": doc.page_content[:100],
+            "text_preview": doc.page_content[:150],
         }
         for doc, score in results
     ]
+
+    latency_s = round(time.perf_counter() - start, 3)
 
     return {
         "answer": response.content[0].text,
@@ -172,30 +177,51 @@ def query(
         "collection_type": collection_type,
         "reranked": use_rerank,
         "cost": cost,
+        "latency_s": latency_s,
     }
 
 
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="RAG query over SEC 10-K filings.")
+    class _HelpFormatter(
+        argparse.ArgumentDefaultsHelpFormatter,
+        argparse.RawDescriptionHelpFormatter,
+    ):
+        pass
+
+    parser = argparse.ArgumentParser(
+        description="RAG query over SEC 10-K filings.",
+        formatter_class=_HelpFormatter,
+        epilog=(
+            "Examples:\n"
+            "  query.py \"What is Apple's revenue?\"\n"
+            "  query.py -v \"How many employees does Apple have?\"\n"
+            "  query.py --store chroma --rerank \"Key risks for Microsoft?\"\n"
+        ),
+    )
     parser.add_argument("question", nargs="*", help="The question to ask")
     parser.add_argument(
-        "--collection_type", "-c",
+        "-c", "--collection-type",
         choices=["fixed", "variable"],
         default="variable",
-        help="Which chunking strategy's collection to query (default: variable)",
+        help="Chunking strategy's collection to query",
     )
     parser.add_argument(
-        "--store", "-s",
+        "-s", "--store",
         choices=["chroma", "pgvector"],
         default="pgvector",
-        help="Which vector store to query (default: pgvector)",
+        help="Vector store to query",
     )
     parser.add_argument(
-        "--rerank", "-r",
+        "-r", "--rerank",
         action="store_true",
         help="Rerank results with cross-encoder (retrieves 24, keeps top 8)",
+    )
+    parser.add_argument(
+        "-v", "--verbose",
+        action="store_true",
+        help="Show latency, cost, scores, and retrieved chunks after the answer",
     )
     args = parser.parse_args()
 
@@ -211,19 +237,35 @@ if __name__ == "__main__":
         use_rerank=args.rerank,
     )
 
+    c = result["cost"]
+    rerank_label = " | Reranked" if result["reranked"] else ""
+
     print(f"\n{'=' * 60}")
     print(result["answer"])
-    print(f"\n{'=' * 60}")
-    rerank_label = " | Reranked" if result["reranked"] else ""
-    print(f"Store: {result['store']} | Collection: {result['collection_type']}{rerank_label}")
-    print(f"Model: {result['model']}")
-    c = result["cost"]
-    print(
-        f"Tokens: {c['llm_input_tokens']} in / {c['llm_output_tokens']} out "
-        f"/ {c['embedding_tokens']} embed  |  Cost: ${c['total_usd']:.6f}"
-    )
-    print(f"\nSources ({len(result['sources'])}):")
-    for s in result["sources"]:
-        sub = f", subsection: {s['subsection']}" if s.get("subsection") else ""
-        print(f"  [{s['company']}] {s['section']} (filed {s['filing_date']}, chunk {s['chunk_index']}, score {s['score']}{sub})")
-        print(f"    {s['text_preview']}...")
+    print(f"{'=' * 60}")
+
+    if not args.verbose:
+        print(
+            f"Store: {result['store']} | "
+            f"Collection: {result['collection_type']}{rerank_label} | "
+            f"Cost: ${c['total_usd']:.6f} | "
+            f"Latency: {result['latency_s']}s"
+        )
+    else:
+        print(f"\nLatency: {result['latency_s']}s")
+        print(
+            f"\nCost: {c['llm_input_tokens']} in / {c['llm_output_tokens']} out "
+            f"/ {c['embedding_tokens']} embed tokens  |  ${c['total_usd']:.6f}"
+        )
+        print(
+            f"\nStore: {result['store']} | "
+            f"Collection: {result['collection_type']}{rerank_label} | "
+            f"Model: {result['model']}"
+        )
+        print("\nScores:")
+        print("  " + "  ".join(f"[{i}] {s['score']}" for i, s in enumerate(result["sources"], 1)))
+        print(f"\nChunks ({len(result['sources'])}):")
+        for i, s in enumerate(result["sources"], 1):
+            sub = f" | Subsection: {s['subsection']}" if s.get("subsection") else ""
+            print(f"  [{i}] {s['company']} | {s['section']} | {s['filing_date']} | chunk {s['chunk_index']}{sub}")
+            print(f"      {s['text_preview']}...")

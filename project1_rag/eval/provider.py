@@ -65,6 +65,7 @@ def call_api(prompt, options, context):
             "output_tokens": cost["llm_output_tokens"],
             "embedding_tokens": cost["embedding_tokens"],
             "total_usd": cost["total_usd"],
+            "latency_s": result["latency_s"],
             "sources": [
                 f"[{s['company']}] {s['section']} chunk {s['chunk_index']} (score {s['score']})"
                 for s in result["sources"]
