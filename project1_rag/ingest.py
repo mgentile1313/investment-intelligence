@@ -112,12 +112,9 @@ def chunk_fixed(
 
 def _strip_page_artifacts(text: str) -> str:
     """Remove page-number/pagination lines that leak into section text."""
-    kept = []
-    for line in text.split("\n"):
-        if PAGE_ARTIFACT_RE.match(line):
-            continue
-        kept.append(line)
-    return "\n".join(kept)
+    return "\n".join(
+        line for line in text.split("\n") if not PAGE_ARTIFACT_RE.match(line)
+    )
 
 
 def _split_into_blocks(text: str) -> list[str]:
@@ -221,15 +218,9 @@ def _coalesce_bullet_runs(blocks: list[str]) -> list[str]:
 
     result: list[str] = []
     for block in blocks:
-        if _is_bullet_block(block):
-            if result and not _is_bullet_block(result[-1]):
-                # Merge into preceding paragraph.
-                result[-1] = f"{result[-1]}\n{block}"
-            elif result and _is_bullet_block(result[-1]):
-                # Merge with prior bullet block.
-                result[-1] = f"{result[-1]}\n{block}"
-            else:
-                result.append(block)
+        if _is_bullet_block(block) and result:
+            # Merge into preceding block (paragraph or prior bullet run).
+            result[-1] = f"{result[-1]}\n{block}"
         else:
             result.append(block)
     return result
@@ -432,7 +423,7 @@ if __name__ == "__main__":
     )
 
     # Write fixed chunks to both stores.
-    print(f"\nWriting fixed chunks...")
+    print("\nWriting fixed chunks...")
     _write_to_stores(
         fixed_chunks, fixed_vectors, embeddings,
         CHROMA_COLLECTION_FIXED, PGVECTOR_COLLECTION_FIXED,
@@ -440,11 +431,11 @@ if __name__ == "__main__":
     )
 
     # Write variable chunks to both stores.
-    print(f"Writing variable chunks...")
+    print("Writing variable chunks...")
     _write_to_stores(
         variable_chunks, variable_vectors, embeddings,
         CHROMA_COLLECTION_VARIABLE, PGVECTOR_COLLECTION_VARIABLE,
         CHROMA_PERSIST_DIR, connection_string,
     )
 
-    print(f"\nDone. 4 collections written (2 Chroma + 2 pgvector).")
+    print("\nDone. 4 collections written (2 Chroma + 2 pgvector).")

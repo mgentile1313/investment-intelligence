@@ -14,7 +14,7 @@ import json
 import yaml
 from pathlib import Path
 
-GOLDEN_DATASET = Path(__file__).resolve().parent / "golden_dataset (1).jsonl"
+GOLDEN_DATASET = Path(__file__).resolve().parent / "golden_dataset.jsonl"
 OUTPUT = Path(__file__).resolve().parent / "tests.yaml"
 
 OUT_OF_SCOPE_GUARDRAILS = [
@@ -79,11 +79,10 @@ def generate():
             }
 
             if row.get("category") == "out_of_scope":
-                for phrase in OUT_OF_SCOPE_GUARDRAILS:
-                    test["assert"].append({
-                        "type": "not-contains",
-                        "value": phrase,
-                    })
+                test["assert"].extend(
+                    {"type": "not-contains", "value": phrase}
+                    for phrase in OUT_OF_SCOPE_GUARDRAILS
+                )
 
             tests.append(test)
 

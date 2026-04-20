@@ -5,16 +5,12 @@ Promptfoo calls call_api() once per (question x config) combination.
 The config (store + collection_type) comes from promptfooconfig.yaml.
 """
 
-import os
 import sys
 import time
 from pathlib import Path
 
-# Promptfoo runs from eval/, but query.py uses relative paths like ./chroma_db.
-# Change to the project root so everything resolves correctly.
 _project_root = str(Path(__file__).resolve().parent.parent)
 sys.path.insert(0, _project_root)
-os.chdir(_project_root)
 
 from query import query
 

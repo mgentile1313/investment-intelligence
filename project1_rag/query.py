@@ -36,7 +36,7 @@ embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
 
 _embed_encoder = tiktoken.encoding_for_model(EMBEDDING_MODEL)
 
-reranker = CrossEncoder(RERANK_MODEL)
+cross_encoder = CrossEncoder(RERANK_MODEL)
 
 VECTORSTORES = {
     "chroma": {
@@ -68,13 +68,11 @@ VECTORSTORES = {
 system_prompt = (Path(__file__).resolve().parent / SYSTEM_PROMPT_PATH).read_text()
 
 
-def rerank(question: str, results, k: int = RETRIEVAL_K):
+def rerank_results(question: str, results, k: int = RETRIEVAL_K):
     """Score each (question, chunk) pair with the cross-encoder and keep top k."""
     pairs = [[question, doc.page_content] for doc, _score in results]
-    scores = reranker.predict(pairs)
-    # Pair each result with its reranker score, sort descending, take top k.
-    scored = list(zip(results, scores))
-    scored.sort(key=lambda x: x[1], reverse=True)
+    scores = cross_encoder.predict(pairs)
+    scored = sorted(zip(results, scores), key=lambda x: x[1], reverse=True)
     return [result for result, _score in scored[:k]]
 
 
@@ -95,7 +93,7 @@ def retrieve(
     results = vs.similarity_search_with_score(question, k=initial_k)
 
     if use_rerank:
-        results = rerank(question, results, k=k)
+        results = rerank_results(question, results, k=k)
 
     return results
 

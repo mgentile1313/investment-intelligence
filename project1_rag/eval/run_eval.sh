@@ -2,7 +2,7 @@
 # Run the promptfoo eval with the correct Python venv and env vars.
 #
 # Usage:
-#   ./run_eval.sh                     # run all 30 questions × 4 configs
+#   ./run_eval.sh                     # run all 30 questions × 5 configs
 #   ./run_eval.sh --filter-first-n 3  # run first 3 questions only (quick test)
 #
 # After running, open the dashboard:

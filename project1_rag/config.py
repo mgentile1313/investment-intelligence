@@ -1,3 +1,7 @@
+from pathlib import Path
+
+_PROJECT_DIR = Path(__file__).resolve().parent
+
 COMPANIES = ["AAPL", "NVDA", "DIS", "JPM", "BX", "CRWD"]
 SECTIONS = ["business", "risk_factors", "management_discussion"]  # TenK attribute names
 
@@ -12,7 +16,7 @@ HEADER_MAX_LEN = 100        # blocks <= this length are candidate headers
 
 CHROMA_COLLECTION_FIXED = "sec_filings_fixed_chunk"
 CHROMA_COLLECTION_VARIABLE = "sec_filings_variable_section_chunk"
-CHROMA_PERSIST_DIR = "./chroma_db"
+CHROMA_PERSIST_DIR = str(_PROJECT_DIR / "chroma_db")
 
 PGVECTOR_COLLECTION_FIXED = "sec_filings_fixed_chunk"
 PGVECTOR_COLLECTION_VARIABLE = "sec_filings_variable_section_chunk"
